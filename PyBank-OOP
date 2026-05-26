@@ -1,0 +1,21 @@
+class BankAccount:
+    def __init__(self,name,balance):
+                self.name = name
+                self.balance= balance
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"{self.name} deposited ₹{amount}. New balance: ₹{self.balance}")
+    def withdraw(self, amount):        
+        if amount >= self.balance:
+            print(f"{self.name} has insufficient funds to withdraw ₹{amount}. Current balance: ₹{self.balance}")
+        else:
+            self.balance -= amount
+            print(f"{self.name} withdrew ₹{amount}. New balance: ₹{self.balance}")
+acc1 = BankAccount("Subhashree", 10000)
+print(acc1.name)
+print(acc1.balance)
+acc2 = BankAccount("Priya", 5000)
+print(acc2.name)
+print(acc2.balance)
+acc1.deposit(2000)
+acc1.withdraw(1500)
