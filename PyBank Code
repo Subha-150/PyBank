@@ -1,0 +1,121 @@
+import random
+account_info=None
+account=0
+print("Welcome to XYZ Bank!")
+while True:
+	operation= input("What you wanna proceed with?:1 Open account 2 Log in 3 Check Available Balance 4  Exit: ")
+	def get_valid_input(question):
+		value = input(question)
+		while value.strip() == "":
+        		print("Not valid! Try again")
+        		value = input(question)
+		return value
+	def New_user():
+		name = get_valid_input("Enter your name: ")
+		gender= get_valid_input("Enter your gender:")
+		age= int(get_valid_input("Enter your age:"))
+		if age<18:
+			print("Not legal age")
+			return #just stop the account creation
+		dob= get_valid_input("Enter your date of birth:")
+		add= get_valid_input("Enter your address:")
+		phone= get_valid_input("Enter your phone number:")
+		while len(phone)!=10:
+			print("Invalid Number!")
+			phone=input("Enter your phone number:")
+		email=input("Enter your email:")
+		aadhar=input("Enter your aadhar id:")
+		while len(aadhar)!=12:
+			print("Aadhar number invalid!")
+			aadhar=input("Enter your aadhar id:")
+		pan= get_valid_input("Enter your PAN number:")
+		while len(pan)!=10:
+			print("Invalid PAN number!")
+			pan=input("Enter your PAN number:")
+		account = random.randint(100000, 999999)
+		print("Your account number is:",account)
+		print("Note that this will your username too!")
+		pin=input("What do want as your 4 digit pin: ")
+		print("Note that this will be your password too")
+		while len(pin)!=4:
+			print("Invalid pin!")
+			pin=input("Enter your 4-digit pin:")
+		username= str(account)
+		password=pin
+		conf=input("Confirm your password:")
+		if password!=conf:
+			print("Re-enter password:")
+		else:
+			print()
+		bal=int(input("Enter your first balance amount:"))
+		while bal<1000:
+			print("Not sufficient balance")
+			bal=int(input("Enter your first balance amount:"))
+		print("Your account has been opened!")
+		account_info=[name,gender,age,dob,add,phone,
+			email,aadhar,pan,account,pin,bal]
+		return [name, gender, age, dob, add, phone, email, aadhar, pan, account, pin,bal,username,password]
+
+	def find_length(number,length):
+		if len(str(number))==length:
+			len(str(number))==length
+			print("Continue!")
+			return True
+		else :
+			print("Invalid input!")
+			return False
+	def login_acc(account_info):
+		x=input("Enter your username: ")
+		y=(input("Enter your password: "))
+		if x==account_info[12] and y== account_info[13]:
+			print("YOU HAVE LOGGED IN SUCCESSFULLY!")			
+			return True
+		else :
+			print("INVALID DATA")
+			return False
+	def verification_acc(account_info):
+			ac_no =int(input("Enter your account number:"))
+			if ac_no== account_info[9]:		
+				pin = input("Enter your pin:")
+				if pin == account_info[10]:
+					print("You have total ₹",account_info[11])
+				else:
+					print("Incorrect pincode")
+					return
+
+	def transaction_choice(account_info):
+			Choice=input("Select Transaction Type:\n 1. Credit\n 2. Debit : ")
+			if Choice=="2":
+				Debit_value=int(input("Enter the amount you want to debit: "))
+				if Debit_value>account_info[11]:
+					print("Insufficient balance")
+				else:
+					account_info[11] -= Debit_value
+					print("Your total available balance is", account_info[11])
+			elif Choice == "1":
+				Credit_value=int(input("Enter the amount you want to credit:"))
+				account_info[11] += Credit_value
+				print("Your total available balance is", account_info[11])
+			else:
+				print("Invalid transaction type")
+
+	if operation =="1":
+		account_info=New_user()
+	elif operation == "2":
+    		if account_info == None:
+        		print("No account exists yet! Please open an account first.")
+    		else:
+        		if login_acc(account_info):
+            			transaction_choice(account_info)
+	elif operation=="3":
+		if account_info== None:
+			print("No account exists yet! Please open an account first.")
+		else:
+			verification_acc(account_info)
+		
+
+		
+	elif operation=="4":
+		print("Exiting Program...")
+		break
+	
