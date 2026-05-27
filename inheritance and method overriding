@@ -1,0 +1,40 @@
+class BankAccount:
+    def __init__(self,name,balance):
+        self.name = name
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"{self.name} deposited ₹{amount}. New balance: ₹{self.balance}")
+    def withdraw(self, amount):        
+        if amount >= self.balance:
+            print(f"{self.name} has insufficient funds to withdraw ₹{amount}. Current balance: ₹{self.balance}")
+        else:
+            self.balance -= amount
+            print(f"{self.name} withdrew ₹{amount}. New balance: ₹{self.balance}")
+    def __str__(self):
+        return f"Account holder :{self.name}, Balance={self.balance}"
+acc1 = BankAccount("Subhashree", 10000)
+print(acc1.name)
+print(acc1.balance)
+acc2 = BankAccount("Priya", 5000)
+print(acc2.name)
+print(acc2.balance)
+acc1.deposit(2000)
+acc2.withdraw(1500)
+class SavingsAccount(BankAccount):
+    def __init__(self,name,balance,interest_rate):
+        super().__init__(name,balance)
+        self.interest_rate = interest_rate
+    def add_interest(self):
+        interest = self.balance * (self.interest_rate / 100)
+        self.balance += interest
+        print(f"{self.name} earned ₹{interest} in interest. New balance: ₹{self.balance}")
+    def __str__(self):
+        return f"Account holder :{self.name}, Balance={self.balance} , Interest Rate={self.interest_rate}%"
+acc3 = SavingsAccount("Shree",2000,4.5)
+print(acc3.name,"Has a savings account with balance ₹",acc3.balance,"and interest rate of",acc3.interest_rate,"%")
+acc3.deposit(500)
+acc3.add_interest()
+print(acc3)
+print(acc1)
